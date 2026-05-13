@@ -1,20 +1,20 @@
-// التحكم في قائمة الموبايل
+
 const menuToggle = document.querySelector('#mobile-menu');
 const navMenu = document.querySelector('.nav-menu');
 
 menuToggle.addEventListener('click', () => {
     navMenu.classList.toggle('active');
     
-    // تحويل شكل الزر (اختياري)
+   
     menuToggle.classList.toggle('is-active');
 });
 
-// إغلاق القائمة عند الضغط على أي رابط
+
 document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
     navMenu.classList.remove('active');
 }));
 
-// تغيير شكل الهيدر عند السكرول
+
 window.addEventListener('scroll', () => {
     const header = document.querySelector('.header');
     if (window.scrollY > 80) {
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const colText = document.querySelector('.col-text');
     const colImage = document.querySelector('.col-image');
 
-    // إضافة تأثير ظهور ناعم
+
     colText.style.opacity = '0';
     colText.style.transform = 'translateX(-50px)';
     colImage.style.opacity = '0';
