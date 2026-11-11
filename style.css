@@ -100,6 +100,15 @@ li {
     background-color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    transition: var(--transition);
+}
+
+.header.scrolled {
+    background-color: var(--light);
+}
+
+.header.scrolled .navbar {
+    height: 60px;
 }
 
 .navbar {
@@ -166,7 +175,8 @@ li {
 }
 
 /* hamburger button: hidden on desktop */
-.menu-toggle {
+.menu-toggle,
+#mobile-menu {
     display: none;
     background: none;
     border: none;
@@ -627,13 +637,14 @@ li {
 
 /* mobile menu */
 @media (max-width: 768px) {
-    .menu-toggle {
+    .menu-toggle,
+    #mobile-menu {
         display: block;
     }
 
     .nav-menu {
         position: absolute;
-        top: 70px;
+        top: 100%;
         left: 0;
         width: 100%;
         background-color: white;
@@ -758,7 +769,7 @@ li {
     }
 }
 
-
+/* disable hover lift on touch devices */
 @media (hover: none) {
     .service-card:hover,
     .doctor-card:hover,
