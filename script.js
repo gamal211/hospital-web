@@ -1,40 +1,45 @@
 const menuToggle = document.querySelector('#mobile-menu');
 const navMenu = document.querySelector('.nav-menu');
 const header = document.querySelector('.header');
+const icon = menuToggle.querySelector('i');
 
-function setMenu(open) {
-  navMenu.classList.toggle('active', open);
-  menuToggle.classList.toggle('is-active', open);
-  menuToggle.setAttribute('aria-expanded', String(open));
-  menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-
-  const icon = menuToggle.querySelector('i');
-  if (icon) {
+// open or close the menu
+function toggleMenu(open) {
+    navMenu.classList.toggle('active', open);
+    menuToggle.setAttribute('aria-expanded', open);
     icon.classList.toggle('fa-bars', !open);
     icon.classList.toggle('fa-xmark', open);
-  }
 }
 
-if (menuToggle && navMenu) {
-  menuToggle.addEventListener('click', () => {
-    setMenu(!navMenu.classList.contains('active'));
-  });
+menuToggle.addEventListener('click', () => {
+    toggleMenu(!navMenu.classList.contains('active'));
+});
 
-  navMenu.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => setMenu(false));
-  });
+// close the menu when a link is clicked
+document.querySelectorAll('.nav-menu a').forEach(link => {
+    link.addEventListener('click', () => toggleMenu(false));
+});
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') setMenu(false);
-  });
+// close the menu with the Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') toggleMenu(false);
+});
 
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.navbar')) setMenu(false);
-  });
+// close the menu when clicking outside the navbar
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.navbar')) toggleMenu(false);
+});
+
+// close the menu when the screen gets bigger than the tablet size
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 992) toggleMenu(false);
+});
+
+// change the header style after scrolling
+function checkScroll() {
+    header.classList.toggle('scrolled', window.scrollY > 80);
 }
 
-if (header) {
-  const updateHeader = () => header.classList.toggle('scrolled', window.scrollY > 80);
-  window.addEventListener('scroll', updateHeader, { passive: true });
-  updateHeader();
+window.addEventListener('scroll', checkScroll);
+checkScroll();
 }
