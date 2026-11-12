@@ -22,6 +22,7 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 70px;
 }
 
 body {
@@ -174,10 +175,12 @@ li {
     display: none;
 }
 
-/* hamburger button: hidden on desktop */
+/* menu button: hidden on desktop */
 .menu-toggle,
 #mobile-menu {
     display: none;
+    width: 44px;
+    height: 44px;
     background: none;
     border: none;
     font-size: 1.6rem;
@@ -279,6 +282,13 @@ li {
 
 .about-text h2 {
     font-size: clamp(1.8rem, 5vw, 2.5rem);
+}
+
+.about-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
 }
 
 .about-features {
@@ -557,7 +567,7 @@ li {
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 40px;
 }
 
@@ -608,35 +618,24 @@ li {
     cursor: pointer;
 }
 
+.footer-bottom {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: var(--light-gray);
+    font-size: 0.9rem;
+}
+
 /* =========================================================
    RESPONSIVE
    ========================================================= */
 
-/* tablet and below */
+/* tablet and below (the menu button shows here) */
 @media (max-width: 992px) {
-    .about,
-    .service,
-    .doctors,
-    .contact {
-        padding: 70px 0;
-    }
-
-    .blogs {
-        padding: 70px 0 40px 0;
-    }
-
-    .about-content {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    .footer-content {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* mobile menu */
-@media (max-width: 768px) {
     .menu-toggle,
     #mobile-menu {
         display: block;
@@ -647,6 +646,8 @@ li {
         top: 100%;
         left: 0;
         width: 100%;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
         background-color: white;
         flex-direction: column;
         align-items: stretch;
@@ -682,6 +683,29 @@ li {
         text-align: center;
     }
 
+    .about,
+    .service,
+    .doctors,
+    .contact {
+        padding: 70px 0;
+    }
+
+    .blogs {
+        padding: 70px 0 40px 0;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .footer-content {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* mobile */
+@media (max-width: 768px) {
     .logo a {
         font-size: 1.5rem;
     }
@@ -735,7 +759,7 @@ li {
     }
 
     .footer-content {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .home-content .btn {
@@ -766,6 +790,38 @@ li {
         width: 50px;
         height: 50px;
         margin-right: 15px;
+    }
+}
+
+/* very small phones */
+@media (max-width: 400px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .logo a {
+        font-size: 1.3rem;
+    }
+
+    .nav-menu {
+        padding: 10px 15px 20px;
+    }
+
+    .contact-form,
+    .contact-item {
+        padding: 20px 15px;
+    }
+
+    .footer {
+        padding: 40px 15px;
+    }
+}
+
+/* phones in landscape (short screens) */
+@media (max-height: 500px) and (orientation: landscape) {
+    .home {
+        min-height: auto;
+        padding: 110px 0 50px;
     }
 }
 
