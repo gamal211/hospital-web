@@ -1,53 +1,40 @@
-
 const menuToggle = document.querySelector('#mobile-menu');
 const navMenu = document.querySelector('.nav-menu');
 const header = document.querySelector('.header');
 
-function closeMenu() {
-  navMenu.classList.remove('active');
-  menuToggle.classList.remove('is-active');
-  menuToggle.setAttribute('aria-expanded', 'false');
+function setMenu(open) {
+  navMenu.classList.toggle('active', open);
+  menuToggle.classList.toggle('is-active', open);
+  menuToggle.setAttribute('aria-expanded', String(open));
+  menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+
+  const icon = menuToggle.querySelector('i');
+  if (icon) {
+    icon.classList.toggle('fa-bars', !open);
+    icon.classList.toggle('fa-xmark', open);
+  }
 }
 
 if (menuToggle && navMenu) {
-  menuToggle.setAttribute('aria-expanded', 'false');
-
   menuToggle.addEventListener('click', () => {
-    const open = navMenu.classList.toggle('active');
-    menuToggle.classList.toggle('is-active');
-    menuToggle.setAttribute('aria-expanded', open);
+    setMenu(!navMenu.classList.contains('active'));
   });
 
-  navMenu.querySelectorAll('a').forEach((link) =>
-    link.addEventListener('click', closeMenu)
-  );
+  navMenu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMenu(false));
+  });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeMenu();
+    if (e.key === 'Escape') setMenu(false);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.navbar')) setMenu(false);
   });
 }
 
 if (header) {
-  window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 80);
-  });
+  const updateHeader = () => header.classList.toggle('scrolled', window.scrollY > 80);
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  const colText = document.querySelector('.col-text');
-  const colImage = document.querySelector('.col-image');
-  if (!colText || !colImage) return;
-
-  colText.style.opacity = '0';
-  colText.style.transform = 'translateX(-50px)';
-  colImage.style.opacity = '0';
-  colImage.style.transform = 'translateX(50px)';
-
-  setTimeout(() => {
-    [colText, colImage].forEach((el) => {
-      el.style.transition = 'all 1s ease-out';
-      el.style.opacity = '1';
-      el.style.transform = 'translateX(0)';
-    });
-  }, 200);
-});
