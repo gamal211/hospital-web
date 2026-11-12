@@ -108,9 +108,12 @@ li {
 }
 
 .header.scrolled .navbar {
-    height: 60px;
+    height: 56px;
 }
 
+.navbar {
+    transition: var(--transition);
+}
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -174,7 +177,7 @@ li {
     display: none;
 }
 
-/* hamburger button: hidden on desktop */
+
 .menu-toggle,
 #mobile-menu {
     display: none;
@@ -611,6 +614,41 @@ li {
 /* =========================================================
    RESPONSIVE
    ========================================================= */
+
+/* ---------- mobile menu button ---------- */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    padding: 10px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--dark);
+    transition: var(--transition);
+}
+
+.menu-toggle.is-active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle.is-active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.is-active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
 
 /* tablet and below */
 @media (max-width: 992px) {
